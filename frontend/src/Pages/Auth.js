@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SvgIcon from "../Components/Authentication/SvgIcon";
 import Signup from "../Components/Authentication/Signup";
 import Login from "../Components/Authentication/Login";
+import { useNavigate } from "react-router-dom";
 
 const MainBox = styled.div`
   width: 100vw;
@@ -46,6 +47,15 @@ const RightBox = styled.div`
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(true);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) {
+      navigate("/chats");
+    }
+  }, [navigate]);
   const handleSignup = () => {
     setIsSignup(!isSignup);
   };

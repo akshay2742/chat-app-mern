@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { white, black } from "../Colors/colors";
 import { BsFillChatQuoteFill } from "react-icons/bs";
@@ -86,6 +86,14 @@ const HomePage = () => {
   const handleBegin = () => {
     navigate("/auth");
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) {
+      navigate("/chats");
+    }
+  }, [navigate]);
 
   return (
     <MainBox>
