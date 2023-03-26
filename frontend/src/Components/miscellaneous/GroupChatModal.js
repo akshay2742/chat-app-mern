@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   Input,
@@ -9,12 +10,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import Toast from "../Toast";
+import UserBatchItem from "../UserAvatar/UserBatchItem";
+import UserListItem from "../UserAvatar/UserListItem";
 
 const GroupChatModal = ({ children }) => {
   const [toastShow, setToastShow] = useState(false);
@@ -43,7 +47,6 @@ const GroupChatModal = ({ children }) => {
       };
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       setLoading(false);
-      console.log(data);
       setSearchResults(data);
     } catch (error) {
       setToastShow(true);
@@ -58,8 +61,63 @@ const GroupChatModal = ({ children }) => {
       setLoading(false);
     }
   };
-  const handleSubmit = async (e) => {};
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!groupChatName || !selectedUsers) {
+      setToastShow(true);
+      setToastText("Fill All The Fields");
+      setToastIcon("failed");
+      setTimeout(() => {
+        setToastShow(false);
+        setToastText("");
+        setToastIcon("");
+      }, 1500);
+      return;
+    }
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        "/api/chat/group",
+        {
+          name: groupChatName,
+          users: JSON.stringify(selectedUsers.map((u) => u._id)),
+        },
+        config
+      );
+      setChats([data, ...chats]);
+      onClose();
+    } catch (error) {
+      setToastShow(true);
+      setToastText("Failed Creating Group");
+      setToastIcon("failed");
+      setTimeout(() => {
+        setToastShow(false);
+        setToastText("");
+        setToastIcon("");
+      }, 1500);
+    }
+  };
+  const handleGroup = (userToAdd) => {
+    if (selectedUsers.includes(userToAdd)) {
+      setToastShow(true);
+      setToastText("User already added");
+      setToastIcon("failed");
+      setTimeout(() => {
+        setToastShow(false);
+        setToastText("");
+        setToastIcon("");
+      }, 1500);
+      return;
+    }
+    setSelectedUsers([...selectedUsers, userToAdd]);
+  };
+  const handleDelete = (delUser) => {
+    setSelectedUsers(selectedUsers.filter((u) => u._id !== delUser._id));
+  };
   return (
     <>
       <span onClick={onOpen}>{children}</span>
@@ -86,6 +144,28 @@ const GroupChatModal = ({ children }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
+            <Box display="flex" w="100%" flexWrap="wrap">
+              {selectedUsers.map((u) => (
+                <UserBatchItem
+                  key={user._id}
+                  user={u}
+                  handleFunction={() => handleDelete(u)}
+                />
+              ))}
+            </Box>
+            {loading ? (
+              <Spinner />
+            ) : (
+              searchResults
+                ?.slice(0, 4)
+                .map((user) => (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    handleFunction={() => handleGroup(user)}
+                  />
+                ))
+            )}
           </ModalBody>
 
           <ModalFooter>

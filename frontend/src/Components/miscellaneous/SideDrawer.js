@@ -208,7 +208,7 @@ const SideDrawer = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
               <Button
-                colorScheme="teal"
+                colorScheme="blue"
                 onClick={searchHandler}
                 isLoading={loading}
               >

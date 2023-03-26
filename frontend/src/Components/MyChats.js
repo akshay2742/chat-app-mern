@@ -20,14 +20,16 @@ const StackBox = styled(Stack)`
     display: none;
   }
 `;
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
   const [toastShow, setToastShow] = useState(false);
   const [toastText, setToastText] = useState("");
   const [toastIcon, setToastIcon] = useState("");
+  const [chatLoader, setChatLoader] = useState(true);
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, chats, setChats, user } = ChatState();
 
   const fetchChats = async () => {
+    setChatLoader(true);
     try {
       const config = {
         headers: {
@@ -35,8 +37,9 @@ const MyChats = () => {
         },
       };
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
+
       setChats(data);
+      setChatLoader(false);
     } catch (error) {
       setToastShow(true);
       setToastText("Failed to fetch chats");
@@ -52,7 +55,7 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
   return (
     <>
       <MyBox
@@ -98,9 +101,9 @@ const MyChats = () => {
           bg="transparent"
           borderRadius="lg"
         >
-          {chats ? (
+          {!chatLoader ? (
             <StackBox>
-              {chats.map((chat, index) => (
+              {chats.map((chat) => (
                 <Box key={chat._id}>
                   <Box
                     display="flex"
