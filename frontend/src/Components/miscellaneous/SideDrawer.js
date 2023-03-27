@@ -154,7 +154,12 @@ const SideDrawer = () => {
             </Text>
           </Button>
         </Tooltip>
-        <Text fontSize="2xl" fontWeight="bold" color="black">
+        <Text
+          fontSize="2xl"
+          fontWeight="bold"
+          color="black"
+          ml={{ base: "80px", md: "unset" }}
+        >
           LetsChat
         </Text>
         <RightDiv>
@@ -217,6 +222,10 @@ const SideDrawer = () => {
             </Box>
             {loading ? (
               <ChatLoading />
+            ) : searchResults.length === 0 ? (
+              <Text textAlign="center" fontSize="sm">
+                No Users Found
+              </Text>
             ) : (
               searchResults.map((user) => (
                 <UserListItem

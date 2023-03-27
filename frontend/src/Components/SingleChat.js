@@ -1,7 +1,17 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Divider,
+  IconButton,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { ChatState } from "../Context/ChatProvider";
 import Icon from "../Images/Chatpage.svg";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { getSender, getSenderFull } from "../config/ChatLogics";
+import ProfileModal from "./miscellaneous/ProfileModal";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = ChatState();
@@ -9,7 +19,81 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat ? (
         <>
-          <Text></Text>
+          <Box
+            fontSize={{ base: "28px", md: "30px" }}
+            pb={3}
+            px={2}
+            w="100%"
+            display="flex"
+            justifyContent={{ base: "space-between" }}
+            alignItems="center"
+          >
+            <IconButton
+              bg="#b3d1f8"
+              _hover={{ bg: "#7eaff0" }}
+              display={{ base: "flex", md: "none" }}
+              icon={<BsFillArrowLeftCircleFill />}
+              onClick={() => setSelectedChat("")}
+            ></IconButton>
+            {!selectedChat.isGroupChat ? (
+              <>
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <ProfileModal user={getSenderFull(user, selectedChat.users)}>
+                    <Avatar
+                      size="sm"
+                      cursor="pointer"
+                      name={getSender(user, selectedChat.users)}
+                      src={
+                        selectedChat.users[0]._id === user._id
+                          ? selectedChat.users[1].pic
+                          : selectedChat.users[0].pic
+                      }
+                      bg="#4FB2E5"
+                      mr={1}
+                    />
+                  </ProfileModal>
+                  <Text fontSize={{ base: "20px", md: "25px" }}>
+                    {getSender(user, selectedChat.users).toUpperCase()}
+                  </Text>
+                  {/* <UpdateGroupChat
+                  fetchAgain={fetchAgain}
+                  setFetchAgain={setFetchAgain}
+                /> */}
+                </Box>
+                <ProfileModal user={getSenderFull(user, selectedChat.users)} />
+              </>
+            ) : (
+              <>
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <Avatar
+                    size="sm"
+                    cursor="pointer"
+                    name={selectedChat.chatName}
+                    bg="#4FB2E5"
+                    mr={1}
+                  />
+                  <Text fontSize={{ base: "20px", md: "25px" }}>
+                    {selectedChat.chatName.toUpperCase()}
+                  </Text>
+                  {/* <UpdateGroupChat
+                  fetchAgain={fetchAgain}
+                  setFetchAgain={setFetchAgain}
+                /> */}
+                </Box>
+              </>
+            )}
+          </Box>
+          <Divider />
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            flexDirection="column"
+            bg="transparent"
+            p={3}
+            h="100%"
+            w="100%"
+            overflowY="hidden"
+          ></Box>
         </>
       ) : (
         <Box

@@ -14,15 +14,21 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { AiFillEye } from "react-icons/ai";
+import styled from "styled-components";
 
+const Span = styled.span`
+  display: flex;
+`;
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       {children ? (
-        <span onClick={onOpen}>{children}</span>
+        <Span onClick={onOpen}>{children}</Span>
       ) : (
         <IconButton
+          bg="#b3d1f8"
+          _hover={{ bg: "#7eaff0" }}
           display={{ base: "flex" }}
           onClick={onOpen}
           icon={<AiFillEye />}
