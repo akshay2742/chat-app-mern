@@ -45,12 +45,13 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+
+      const { data } = await axios.get(`/api/user?search=${query}`, config);
       setLoading(false);
       setSearchResults(data);
     } catch (error) {
       setToastShow(true);
-      setToastText(error.response.data.message);
+      setToastText("Failed Loading Users");
       setToastIcon("failed");
 
       setTimeout(() => {
@@ -89,10 +90,13 @@ const GroupChatModal = ({ children }) => {
         config
       );
       setChats([data, ...chats]);
+      setSelectedUsers([]);
+      setGroupChatName("");
+      setSearch("");
       onClose();
     } catch (error) {
       setToastShow(true);
-      setToastText("Failed Creating Group");
+      setToastText(error.response.data.message);
       setToastIcon("failed");
       setTimeout(() => {
         setToastShow(false);
@@ -111,9 +115,14 @@ const GroupChatModal = ({ children }) => {
         setToastText("");
         setToastIcon("");
       }, 1500);
+      setSearch("");
+      setSearchResults([]);
       return;
+    } else {
+      setSelectedUsers([...selectedUsers, userToAdd]);
+      setSearch("");
+      setSearchResults([]);
     }
-    setSelectedUsers([...selectedUsers, userToAdd]);
   };
   const handleDelete = (delUser) => {
     setSelectedUsers(selectedUsers.filter((u) => u._id !== delUser._id));
@@ -122,11 +131,16 @@ const GroupChatModal = ({ children }) => {
     <>
       <span onClick={onOpen}>{children}</span>
 
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader display="flex" fontSize="38px" justifyContent="center">
-            Create Group Chat{" "}
+          <ModalHeader display="flex" fontSize="30px" justifyContent="center">
+            Create Group Chat
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" flexDir="column" alignItems="center">
@@ -134,6 +148,7 @@ const GroupChatModal = ({ children }) => {
               <Input
                 placeholder="Group Chat Name"
                 mb={3}
+                value={groupChatName}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />
             </FormControl>
@@ -141,16 +156,18 @@ const GroupChatModal = ({ children }) => {
               <Input
                 placeholder="Add Users eg: Akshay, Yash, Vaniya"
                 mb={1}
+                value={search}
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
             <Box display="flex" w="100%" flexWrap="wrap">
               {selectedUsers.map((u) => (
-                <UserBatchItem
-                  key={user._id}
-                  user={u}
-                  handleFunction={() => handleDelete(u)}
-                />
+                <Box key={u._id}>
+                  <UserBatchItem
+                    user={u}
+                    handleFunction={() => handleDelete(u)}
+                  />
+                </Box>
               ))}
             </Box>
             {loading ? (

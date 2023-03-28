@@ -6,7 +6,12 @@ import { IoCloseSharp } from "react-icons/io5";
 const CrossIcon = styled(IoCloseSharp)`
   padding-left: 5px;
 `;
-const UserBatchItem = ({ user, handleFunction }) => {
+const UserBatchItem = ({
+  color = "#4FB2E5",
+  hover = "#298bbd",
+  user,
+  handleFunction,
+}) => {
   return (
     <Box
       display="flex"
@@ -19,11 +24,11 @@ const UserBatchItem = ({ user, handleFunction }) => {
       mb={2}
       variant="solid"
       fontSize={12}
-      backgroundColor="#4FB2E5"
+      backgroundColor={color}
       color="black"
       cursor="pointer"
       _hover={{
-        background: "#298bbd",
+        background: { hover },
         color: "white",
       }}
       onClick={handleFunction}

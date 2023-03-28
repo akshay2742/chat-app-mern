@@ -37,7 +37,7 @@ const ProfileModal = ({ user, children }) => {
       <Modal size="lg" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader display="flex" fontSize="40px" justifyContent="center">
+          <ModalHeader display="flex" fontSize="35px" justifyContent="center">
             {user.firstname + " " + user.lastname}
           </ModalHeader>
           <ModalCloseButton />
@@ -56,7 +56,7 @@ const ProfileModal = ({ user, children }) => {
               bg="teal.500"
               mb="20px"
             />
-            <Text fontSize={{ base: "20px", md: "25px" }}>
+            <Text fontSize={{ base: "20px", md: "20px" }}>
               Email: {user.email}
             </Text>
           </ModalBody>

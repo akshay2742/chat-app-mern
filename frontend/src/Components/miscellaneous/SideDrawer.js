@@ -55,6 +55,7 @@ const SideDrawer = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
+    setSelectedChat();
     navigate("/auth");
   };
 

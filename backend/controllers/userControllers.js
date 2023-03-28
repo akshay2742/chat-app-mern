@@ -41,7 +41,9 @@ const registerUser = asyncHandler(async (req, res) => {
     country,
     email,
     phonenumber,
-    pic: pic,
+    pic:
+      pic ||
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     password,
   });
 

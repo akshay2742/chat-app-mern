@@ -12,6 +12,7 @@ import Icon from "../Images/Chatpage.svg";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModal";
+import UpdateGroupChat from "./miscellaneous/UpdateGroupChat";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = ChatState();
@@ -55,31 +56,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   <Text fontSize={{ base: "20px", md: "25px" }}>
                     {getSender(user, selectedChat.users).toUpperCase()}
                   </Text>
-                  {/* <UpdateGroupChat
-                  fetchAgain={fetchAgain}
-                  setFetchAgain={setFetchAgain}
-                /> */}
                 </Box>
                 <ProfileModal user={getSenderFull(user, selectedChat.users)} />
               </>
             ) : (
               <>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Avatar
-                    size="sm"
-                    cursor="pointer"
-                    name={selectedChat.chatName}
-                    bg="#4FB2E5"
-                    mr={1}
-                  />
+                  <UpdateGroupChat>
+                    <Avatar
+                      size="sm"
+                      cursor="pointer"
+                      name={selectedChat.chatName}
+                      bg="#4FB2E5"
+                      mr={1}
+                    />
+                  </UpdateGroupChat>
                   <Text fontSize={{ base: "20px", md: "25px" }}>
                     {selectedChat.chatName.toUpperCase()}
                   </Text>
-                  {/* <UpdateGroupChat
+                </Box>
+                <UpdateGroupChat
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
-                /> */}
-                </Box>
+                />
               </>
             )}
           </Box>
