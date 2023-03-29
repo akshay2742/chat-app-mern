@@ -22,6 +22,9 @@ const LoginForm = styled.form`
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 768px) {
+    justify-content: unset;
+  }
 `;
 const InputWithText = styled.input`
   width: 100%;
@@ -142,11 +145,15 @@ const HorizontalLine = styled.hr`
   margin: 12px;
   background-color: #ccc;
   border: none;
+  @media (max-width: 768px) {
+    border: 1px solid #ccc;
+  }
 `;
 const GoogleButton = styled.button`
   width: 16rem;
   height: 50px;
   margin: 10px;
+  padding: 10px;
   border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 20px;
@@ -164,6 +171,8 @@ const GithubButton = styled.button`
   width: 16rem;
   height: 50px;
   border-radius: 25px;
+  padding: 10px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
   font-size: 20px;
   font-weight: 700;

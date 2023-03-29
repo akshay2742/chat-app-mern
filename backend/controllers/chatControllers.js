@@ -144,7 +144,6 @@ const addToGroup = asyncHandler(async (req, res) => {
 
 const removeFromGroup = asyncHandler(async (req, res) => {
   const { chatId, userId } = req.body;
-  console.log(req.body);
 
   const removeUser = await Chat.findByIdAndUpdate(
     chatId,
@@ -155,21 +154,21 @@ const removeFromGroup = asyncHandler(async (req, res) => {
   )
     .populate("users", "-password")
     .populate("groupAdmin", "-password");
-  if (removeUser.users.length == 1) {
+  if (removeUser.users.length === 0) {
     await Chat.findByIdAndDelete(chatId);
+    res.send("Chat Deleted");
     return;
-  } else {
-    if (removeUser.groupAdmin._id == userId) {
-      removeUser.groupAdmin = removeUser.users[0];
-      await removeUser.save();
-    }
+  }
+  if (removeUser.groupAdmin._id == userId) {
+    removeUser.groupAdmin = removeUser.users[0];
+    await removeUser.save();
+  }
 
-    if (!removeUser) {
-      res.status(400);
-      throw new Error("Chat Not Found");
-    } else {
-      res.json(removeUser);
-    }
+  if (!removeUser) {
+    res.status(400);
+    throw new Error("Chat Not Found");
+  } else {
+    res.json(removeUser);
   }
 });
 

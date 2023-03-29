@@ -26,6 +26,9 @@ const InnerBox = styled.div`
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const LeftBox = styled.div`
   width: 50%;
@@ -34,6 +37,10 @@ const LeftBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
 `;
 const RightBox = styled.div`
   width: 50%;
@@ -42,6 +49,10 @@ const RightBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
 `;
 
 const Auth = () => {

@@ -48,6 +48,17 @@ const InputBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const InputBoxButton = styled.div`
+  width: 100%;
+  height: 50px;
+  margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 768px) {
+    margin: 25px;
+  }
+`;
 const PhoneBox = styled.div`
   width: 100%;
   height: 50px;
@@ -702,7 +713,7 @@ const Signup = ({ handleSignup }) => {
             </Text>
           </Ques>
         </CenterDiv>
-        <InputBox>
+        <InputBoxButton>
           <SubmitButton
             type="submit"
             onClick={handleSubmit}
@@ -710,7 +721,7 @@ const Signup = ({ handleSignup }) => {
           >
             {!showLoader ? "Signup" : <LoadIcon />}
           </SubmitButton>
-        </InputBox>
+        </InputBoxButton>
       </LoginForm>
       <Toast toast={toastShow} toastText={toastText} icon={toastIcon} />
     </>

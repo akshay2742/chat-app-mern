@@ -26,7 +26,12 @@ import styled from "styled-components";
 const Span = styled.span`
   display: flex;
 `;
-const UpdateGroupChat = ({ fetchAgain, setFetchAgain, children }) => {
+const UpdateGroupChat = ({
+  fetchAgain,
+  setFetchAgain,
+  children,
+  fetchMessages,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState("");
   const [search, setSearch] = useState("");
@@ -150,6 +155,7 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, children }) => {
       }, 1500);
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setLoading(false);
     } catch (error) {
       setToastShow(true);
@@ -165,17 +171,6 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, children }) => {
   };
 
   const handleAddUser = async (user1) => {
-    if (selectedChat.users.find((u) => u._id === user1._id)) {
-      setToastShow(true);
-      setToastText("User already in group");
-      setToastIcon("failed");
-      setTimeout(() => {
-        setToastShow(false);
-        setToastText("");
-        setToastIcon("");
-      }, 1500);
-      return;
-    }
     if (selectedChat.groupAdmin._id !== user._id) {
       setToastShow(true);
       setToastText("Admin can add users");
@@ -187,6 +182,18 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, children }) => {
       }, 1500);
       return;
     }
+    if (selectedChat.users.find((u) => u._id === user1._id)) {
+      setToastShow(true);
+      setToastText("User already in group");
+      setToastIcon("failed");
+      setTimeout(() => {
+        setToastShow(false);
+        setToastText("");
+        setToastIcon("");
+      }, 1500);
+      return;
+    }
+
     try {
       setLoading(true);
       const config = {

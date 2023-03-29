@@ -34,7 +34,7 @@ const ProfileModal = ({ user, children }) => {
           icon={<AiFillEye />}
         />
       )}
-      <Modal size="lg" isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal size="sm" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader display="flex" fontSize="35px" justifyContent="center">
