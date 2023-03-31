@@ -54,23 +54,23 @@ Start the Client
 
 ### Authenticaton
 
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/login.PNG)
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/Signup.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/login.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/Signup.PNG)
 
 ### One to One chat
 
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/individualChats.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/individualChats.PNG)
 
 ### Search Users
 
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/searchUsers.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/searchUsers.PNG)
 
 ### Create Group Chats
 
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/createGroups.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/createGroups.PNG)
 
 ### View Other user Profile
 
-![](https://github.com/akshay2742/chat-app-mern/blob/master/screenshots/anotherPersonProfile.PNG)
+![](https://github.com/akshay2742/chat-app-mern/tree/master/screenshots/anotherPersonProfile.PNG)
 
 - [@akshay2742](https://github.com/akshay2742)
