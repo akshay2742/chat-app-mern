@@ -40,7 +40,7 @@ const InputWithText = styled.input`
 `;
 const InputBox = styled.div`
   width: 100%;
-  height: 50px;
+  height: 6%;
   margin: 25px;
   display: flex;
   justify-content: center;
