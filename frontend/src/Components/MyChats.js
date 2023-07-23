@@ -135,9 +135,24 @@ const MyChats = ({ fetchAgain }) => {
                               : chat.users[0].pic
                           }
                         />
-                        <Text fontSize="lg" fontWeight="bold" pl={3}>
-                          {getSender(loggedUser, chat.users)}
-                        </Text>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="flex-start"
+                        >
+                          <Text fontSize="lg" fontWeight="bold" pl={3}>
+                            {getSender(loggedUser, chat.users)}
+                          </Text>
+                          {chat.lastestMessage && (
+                            <Text fontSize="xs" pl={3} pt={1}>
+                              {chat.lastestMessage.content.length > 50
+                                ? chat.lastestMessage.content.substring(0, 51) +
+                                  "..."
+                                : chat.lastestMessage.content}
+                            </Text>
+                          )}
+                        </Box>
                       </Box>
                     ) : (
                       <>
@@ -152,9 +167,35 @@ const MyChats = ({ fetchAgain }) => {
                             name={chat.chatName}
                             bg="#4FB2E5"
                           />
-                          <Text fontSize="lg" fontWeight="bold" pl={3}>
-                            {chat.chatName}
-                          </Text>
+                          <Box
+                            display="flex"
+                            flexDirection="column"
+                            justifyContent="center"
+                            alignItems="flex-start"
+                          >
+                            <Text fontSize="lg" fontWeight="bold" pl={3}>
+                              {chat.chatName}
+                            </Text>
+                            {chat.lastestMessage && (
+                              <Text fontSize="xs" pl={3} pt={1}>
+                                <b>
+                                  {chat.lastestMessage.sender._id ===
+                                  loggedUser._id
+                                    ? "You : "
+                                    : chat.lastestMessage.sender.firstname +
+                                      " " +
+                                      chat.lastestMessage.sender.lastname +
+                                      " : "}
+                                </b>
+                                {chat.lastestMessage.content.length > 50
+                                  ? chat.lastestMessage.content.substring(
+                                      0,
+                                      51
+                                    ) + "..."
+                                  : chat.lastestMessage.content}
+                              </Text>
+                            )}
+                          </Box>
                         </Box>
                         <Text fontSize="sm" fontWeight="bold">
                           {chat.users.length}

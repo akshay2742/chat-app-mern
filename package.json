@@ -17,6 +17,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.4",
     "nodemon": "^2.0.20",
-    "react-phone-number-input": "^3.2.19"
+    "react-phone-number-input": "^3.2.19",
+    "socket.io": "^4.7.1"
   }
 }
